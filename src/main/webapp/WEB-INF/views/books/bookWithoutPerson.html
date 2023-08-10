@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page of Book</title>
+</head>
+<body th:object = "${bookAndPerson}">
+<div th:text = "${bookAndPerson.getBook().getName() + ', ' + bookAndPerson.getBook().getAuthor() + ', ' + bookAndPerson.getBook().getYearOfPublication()}" ></div>
+<div>Эта книга свободна. Кому назначить её?</div>
+<form th:method = "PATCH" th:action = "@{/books/addPerson/{id}(id = ${bookAndPerson.getBook().getId()})}">
+    <label for = "person">Выберите человека</label>
+    <select th:object = "${bookAndPerson}" th:field = "*{id}" id = "person">
+        <option th:each = "person : ${bookAndPerson.getAllPerson()}" th:value = "${person.getId()}" th:text = "${person.getFio()}"></option>
+    </select>
+    <input type = "submit" value = "Назначить книгу" />
+</form>
+<br/>
+<form th:action = "@{/books/{id}/edit(id = ${bookAndPerson.getBook().getId()})}">
+    <input type = "submit" value = "Редактировать" />
+</form>
+<br/>
+<form th:method = "DELETE" th:action = "@{/books/{id}(id = ${bookAndPerson.getBook().getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+</body>
+</html>

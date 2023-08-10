@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page of book</title>
+</head>
+<body th:object = "${bookAndPerson}">
+<div th:text = "${bookAndPerson.getBook().getName() + ', ' + bookAndPerson.getBook().getAuthor() + ', ' + bookAndPerson.getBook().getYearOfPublication()}" ></div>
+<div th:text = " 'Сейчас книга у : ' + ${bookAndPerson.getAllPerson().get(0).getFio()}"></div>
+
+<form th:method = "PATCH" th:action = "@{/books/deletePerson/{id}(id = ${bookAndPerson.getBook().getId()})}">
+    <input type = "submit" value="Освободить книгу"/>
+</form>
+<br/>
+<form th:action = "@{/books/{id}/edit(id = ${bookAndPerson.getBook().getId()})}">
+    <input type = "submit" value = "Редактировать" />
+</form>
+<br/>
+<form th:method = "DELETE" th:action = "@{/books/{id}(id = ${bookAndPerson.getBook().getId()})}">
+    <input type="submit" value="Удалить">
+</form>
+</body>
+</html>
